@@ -1,0 +1,43 @@
+{
+  "version": 2,
+  "dgSpecHash": "DJ66WrNpghBmQcnwrawlcLOsgTy9skbrBVNEu86emeazX4CVd9xEtQbbpQGxi8jixuNuCgDiKvznXUufnLW07g==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Laser\\Documents\\00\\0531\\TxtReader\\TxtReader\\TxtReader.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Laser\\.nuget\\packages\\folderbrowserforwpf\\1.2.0\\folderbrowserforwpf.1.2.0.nupkg.sha512",
+    "C:\\Users\\Laser\\.nuget\\packages\\microsoft.international.converters.pinyinconverter\\1.0.0\\microsoft.international.converters.pinyinconverter.1.0.0.nupkg.sha512",
+    "C:\\Users\\Laser\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\Laser\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\Laser\\.nuget\\packages\\qrcoder\\1.4.3\\qrcoder.1.4.3.nupkg.sha512",
+    "C:\\Users\\Laser\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
+    "C:\\Users\\Laser\\.nuget\\packages\\system.speech\\7.0.0\\system.speech.7.0.0.nupkg.sha512",
+    "C:\\Users\\Laser\\.nuget\\packages\\traditionalchinesetosimplifiedconverter\\1.0.0\\traditionalchinesetosimplifiedconverter.1.0.0.nupkg.sha512",
+    "C:\\Users\\Laser\\.nuget\\packages\\utf.unknown\\2.5.1\\utf.unknown.2.5.1.nupkg.sha512",
+    "C:\\Users\\Laser\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\7.0.5\\microsoft.netcore.app.runtime.win-x64.7.0.5.nupkg.sha512",
+    "C:\\Users\\Laser\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\7.0.5\\microsoft.windowsdesktop.app.runtime.win-x64.7.0.5.nupkg.sha512",
+    "C:\\Users\\Laser\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\7.0.5\\microsoft.aspnetcore.app.runtime.win-x64.7.0.5.nupkg.sha512",
+    "C:\\Users\\Laser\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\7.0.5\\microsoft.netcore.app.crossgen2.win-x64.7.0.5.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "已使用“.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1”而不是项目目标框架“net7.0-windows7.0”还原包“Microsoft.International.Converters.PinYinConverter 1.0.0”。此包可能与项目不完全兼容。",
+      "libraryId": "Microsoft.International.Converters.PinYinConverter",
+      "targetGraphs": [
+        "net7.0-windows7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "已使用“.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1”而不是项目目标框架“net7.0-windows7.0”还原包“TraditionalChineseToSimplifiedConverter 1.0.0”。此包可能与项目不完全兼容。",
+      "libraryId": "TraditionalChineseToSimplifiedConverter",
+      "targetGraphs": [
+        "net7.0-windows7.0"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,245 @@
+﻿<Window x:Class="TxtReader.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TxtReader"
+        mc:Ignorable="d"
+        Title="TXT阅读器" Height="450" Width="800">
+    <DockPanel LastChildFill="True">
+        <ToolBar DockPanel.Dock="Top">
+            <Button Content="👈" x:Name="btnCloseLeft"  Click="btnCloseLeft_Click"/>
+            <Button Content="导入" Click="btnLoadFolder_Click"/>
+            <Button Content="打开" Click="btnOpenTxt_Click"/>
+            <Button Content="保存" Click="btnSaveTxt_Click"/>
+            <Button Content="帮助" Click="btnHelp_Click"/>
+            <Separator Width="1"/>
+            <Button Content="💰" Click="btnDonate_Click"/>
+            <Separator Width="1"/>
+            <Button Content="👉" 
+                    x:Name="btnCloseRight" Click="btnCloseRight_Click"/>
+        </ToolBar>
+        <StatusBar DockPanel.Dock="Bottom">
+            <TextBlock x:Name="tbStatusEncoding" Margin="0 0 5 0"/>
+            <Separator Width="1"/>
+            <TextBlock x:Name="tbStatusSecSchedule" Margin="5 0 5 0"/>
+            <Separator Width="1"/>
+            <TextBlock x:Name="tbStatusTxtSchedule" Margin="5 0 5 0"/>
+            <Separator Width="1"/>
+            <TextBlock x:Name="tbStatusPerSchedule" Margin="5 0 5 0"/>
+            <Separator Width="1"/>
+
+        </StatusBar>
+        <UniformGrid x:Name="ufgLeft" DockPanel.Dock="Left" 
+                     Width="{Binding Value, ElementName=asLeftWidth}" Columns="1">
+            <TreeView x:Name="tvBookShelf" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      SelectedItemChanged="tvBookShelf_SelectedItemChanged"/>
+            <ListBox x:Name="lvCatalog"
+                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     SelectionChanged="lvCatalog_SelectionChanged"/>
+        </UniformGrid>
+
+        <DockPanel LastChildFill="True" DockPanel.Dock="Right" x:Name="svRight" 
+                   Width="{Binding Value, ElementName=asRightWidth}">
+                <ScrollViewer DockPanel.Dock="Top">
+                <ScrollViewer.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Margin" Value="4"/>
+                    </Style>
+                    <Style TargetType="ComboBox">
+                        <Setter Property="Margin" Value="4"/>
+                    </Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Margin" Value="4"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                    </Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Margin" Value="4"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                    </Style>
+                </ScrollViewer.Resources>
+                <StackPanel Orientation="Vertical">
+                    <GroupBox Header="阅读控制">
+                        <StackPanel Orientation="Horizontal">
+                            <ComboBox x:Name="cbReadMode" SelectionChanged="cbReadMode_SelectionChanged"/>
+                            <UniformGrid Columns="5">
+                                <Button Content="⏮️" Click="btnJumpSec_Click"/>
+                                <Button Content="⏪" Click="btnJump_Click"/>
+                                <Button Content="▶️" Click="btnReadStart_Click" />
+                                <Button Content="⏩" Click="btnJump_Click"/>
+                                <Button Content="⏭️" Click="btnJumpSec_Click"/>
+                            </UniformGrid>
+                            <Button Content="📈" Margin="25 5 0 5"  Click="btnNewTest_Click"/>
+                            <Button Content="❌" Click="btnCloseRight_Click"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <Expander DockPanel.Dock="Top" Header="阅读设置">
+                        <StackPanel>
+                            <local:AdvanceSlider x:Name="sReadSpeed" Title="滚动延时" Unit="ms" TitleWidth="50" UnitWidth="25"
+                                                 Min="100" Max="5000" Value="800" ValueChanged="AdvancedSlider_ValueChanged"/>
+                            <local:AdvanceSlider x:Name="sReadLine" Title="每次滚动" Unit="行" TitleWidth="50" UnitWidth="25"
+                                                 Min="1" Max="30" Value="1" ValueChanged="AdvancedSlider_ValueChanged"/>
+                            <local:AdvanceSlider x:Name="sSoundVolume" Title="朗读音量" TitleWidth="50"
+                                                     Max="100" Min="0" Value="25" ValueChanged="sSoundVolume_ValueChanged"/>
+                            <local:AdvanceSlider x:Name="sSpeechRate" Title="朗读语速" TitleWidth="50"
+                                                 IsEnabled="{Binding IsEnabled, ElementName=sSoundVolume}"
+                                                 Max="10" Min="-10" Value="0" ValueChanged="sSpeechRate_ValueChanged"/>
+                            <StackPanel Orientation="Horizontal" IsEnabled="{Binding IsEnabled, ElementName=sSoundVolume}">
+                                <TextBlock Text="朗读音源" Width="50"/>
+                                <ComboBox x:Name="cbSoundCulture" Width="100" SelectionChanged="cbSoundCulture_SelectionChanged"/>
+                                <ComboBox x:Name="cbSoundSource" Width="150" SelectionChanged="cbSoundSource_SelectionChanged"/>
+                            </StackPanel>
+
+                        </StackPanel>
+                    </Expander>
+                    <Expander DockPanel.Dock="Top" Header="外观设置">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="字体"/>
+                                <ComboBox x:Name="cbFontArea" Width="100" SelectionChanged="cbFontArea_SelectionChanged"/>
+                                <ComboBox x:Name="cbFont" Width="150"/>
+                            </StackPanel>
+                            <UniformGrid Columns="3">
+                                <ComboBox x:Name="cbFontWeight"/>
+                                <ComboBox x:Name="cbFontStrech"/>
+                                <ComboBox x:Name="cbFontStyle"/>
+                            </UniformGrid>
+                            <local:AdvanceSlider x:Name="sFontSize" Title="尺寸" Max="100" Min="1" Value="15"/>
+                            <local:AdvanceSlider x:Name="sLineHeight" Title="行高" Max="10" Min="1" Value="2" Visibility="Collapsed"/>
+                            <StackPanel x:Name="color" Orientation="Horizontal">
+                                <TextBlock Text="前景"/>
+                                <ComboBox x:Name="cbForeColor" Width="105"/>
+                                <TextBlock Text="背景"/>
+                                <ComboBox x:Name="cbBgColor" Width="105"/>
+                            </StackPanel>
+                            <local:AdvanceSlider x:Name="asTextOpacity" Title="透明度" IsSnapToTickEnabled="False"
+                                                 TitleWidth="40" Min="0" Max="1" Value="0.9"/>
+                            <local:AdvanceSlider x:Name="asLeftWidth"
+                                                 Title="左宽" Min="0" Max="500" Value="200"/>
+                            <local:AdvanceSlider x:Name="asRightWidth"
+                                                 Title="右宽" Min="200" Max="500" Value="320"/>
+
+                        </StackPanel>
+                    </Expander>
+                    <Expander DockPanel.Dock="Top" Header="文本设置">
+                        <TabControl x:Name="tcTextSetting">
+                            <TabItem Header="文本分页">
+                                <StackPanel>
+                                    <UniformGrid Columns="3">
+                                        <RadioButton x:Name="rbSecMode" Content="章节模式" IsChecked="True" Checked="rbSecMode_Checked"/>
+                                        <RadioButton x:Name ="rbPageMode" Content="分页模式" Checked="rbSecMode_Checked"/>
+                                        <RadioButton x:Name="rbSecPage" Content="章节分页" Checked="rbSecMode_Checked"/>
+                                    </UniformGrid>
+                                    <local:AdvanceSlider x:Name="asPageLines" Title="分页行数" 
+                                                         TitleWidth="50" Min="0" Max="1000" Value="0"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <local:TextBoxWithLabel Label="换行符" x:Name="tbwlLF" Width="150"/>
+                                        <Button Content="设置" Width="60" x:Name="btnSetSplitPages" Click="btnSetSplitPages_Click"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </TabItem>
+                            <TabItem Header="标题设置">
+                                <StackPanel x:Name="spRegCatalog"/>
+                            </TabItem>
+                            <TabItem Header="文本优化">
+                                <TabItem.Resources>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Width" Value="50"/>
+                                        <Setter Property="Margin" Value="4"/>
+                                    </Style>
+                                </TabItem.Resources>
+                                <StackPanel>
+                                    <DockPanel LastChildFill="True">
+                                        <Button Content="执行"  DockPanel.Dock="Right" Click="btnFMT_Click"/>
+                                        <UniformGrid Columns="3" x:Name="ufgCheckBoxes"/>
+                                    </DockPanel>
+                                    <DockPanel LastChildFill="True">
+                                        <CheckBox x:Name="chkRegex" Content="正则表达式" Margin="5" DockPanel.Dock="Right"/>
+                                        <local:TextBoxWithLabel x:Name="tbOldText" Label="文本替换"/>
+                                    </DockPanel>
+                                    <DockPanel LastChildFill="True">
+                                        <Button Content="替换" DockPanel.Dock="Right" Click="btnReplace_Click"/>
+                                        <local:TextBoxWithLabel x:Name="tbNewText" Label="➠➠➠➠"/>
+                                    </DockPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Content="转繁体" Click="btnComplex2Simple_Click"/>
+                                        <Button Content="转简体" Click="btnComplex2Simple_Click"/>
+                                    </StackPanel>
+                                    <DockPanel LastChildFill="True">
+                                        <TextBlock Text="编码更改" Width="47"/>
+                                        <Button Content="另存" DockPanel.Dock="Right" Click="btnSaveAs_Click"/>
+                                        <Button Content="重载" DockPanel.Dock="Right" Click="btnReload_Click"/>
+                                        <ComboBox x:Name="cbEncoding"/>
+                                    </DockPanel>
+                                </StackPanel>
+                            </TabItem>
+                            <TabItem Header="文本搜索">
+                                <StackPanel>
+                                    <DockPanel LastChildFill="True">
+                                        <Button DockPanel.Dock="Right" Content="搜索" Width="60" 
+                                                Click="btnSearchText_Click"/>
+                                        <TextBox x:Name="txtForSearching"/>
+                                    </DockPanel>
+                                    <ListBox x:Name="lvSearchResult" MaxHeight="150"
+                                             ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                             ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                             SelectionChanged="lvSearchResult_SelectionChanged"/>
+
+                                </StackPanel>
+                            </TabItem>
+
+                        </TabControl>
+                    </Expander>
+                    <Expander Header="杂项" DockPanel.Dock="Top">
+                        <StackPanel>
+                            <UniformGrid Columns="4">
+                                <Button Content="保存参数" Click="btnSavePara_Click"/>
+                                <Button Content="加载参数" Click="btnLoadPara_Click"/>
+                                <Button Content="保存书架"/>
+                                <Button Content="加载书架"/>
+                                <Button Content="阅读背景" Click="btnSetBackImage_Click"/>
+                            </UniformGrid>
+                            <UniformGrid Columns="2">
+                                <CheckBox Content="开启时导入设置" x:Name="chkOpenImport" IsChecked="True" Margin="3"/>
+                                <CheckBox Content="关闭时保存设置" x:Name="chkCloseExport" IsChecked="True" Margin="3"/>
+                                <CheckBox Content="开启时导入文件" x:Name="chkOpenLoadTxt" IsChecked="True" Margin="3"/>
+                                <CheckBox Content="关闭时保存文件" x:Name="chkCloseSaveTxt" IsChecked="True" Margin="3"/>
+                            </UniformGrid>
+
+                        </StackPanel>
+                        </Expander>
+                    </StackPanel>
+
+                </ScrollViewer>
+
+                
+                <GroupBox  Header="信息框">
+                    <TextBox x:Name="txtInfo" AcceptsReturn="True" TextWrapping="Wrap" 
+                             VerticalScrollBarVisibility="Auto" />
+                </GroupBox>
+
+            </DockPanel>
+        <ProgressBar DockPanel.Dock="Bottom" x:Name="pgBarText" Height="2"/>
+        <GroupBox x:Name="gbNote" Header="笔记" DockPanel.Dock="Bottom"
+                  Height="200" Visibility="Collapsed">
+            <DockPanel LastChildFill="True">
+                <UniformGrid Rows="1" DockPanel.Dock="Bottom">
+                    <Button Content="保存" Click="btnSaveNote_Click"/>
+                    <Button Content="关闭" Click="btnCloseNote_Click"/>
+                </UniformGrid>
+                <TextBox x:Name="tbNote" AcceptsReturn="True" TextWrapping="Wrap"
+                         FontFamily="{Binding SelectedItem, ElementName=cbFont}"
+                         FontSize="{Binding Value, ElementName=sFontSize}"/>
+            </DockPanel>
+        </GroupBox>
+        <TabControl x:Name="tbBooks" SelectionChanged="tbBooks_SelectionChanged">
+            <TabItem Header="无文件"/>
+
+        </TabControl>
+        
+
+    </DockPanel>
+</Window>

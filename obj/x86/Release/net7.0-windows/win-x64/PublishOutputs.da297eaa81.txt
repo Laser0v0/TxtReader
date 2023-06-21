@@ -1,0 +1,4 @@
+C:\Users\Laser\Documents\00\0531\TxtReader\publishWhole\TxtReader.pdb
+C:\Users\Laser\Documents\00\0531\TxtReader\publishWhole\src\help.txt
+C:\Users\Laser\Documents\00\0531\TxtReader\publishWhole\src\头像.png
+C:\Users\Laser\Documents\00\0531\TxtReader\publishWhole\TxtReader.exe

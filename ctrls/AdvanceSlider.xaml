@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="TxtReader.AdvanceSlider"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TxtReader"
+             mc:Ignorable="d" 
+             d:DesignHeight="20" d:DesignWidth="280">
+    <DockPanel LastChildFill="True">
+        <TextBlock Text="{Binding Title}" Width="{Binding TitleWidth}" VerticalAlignment="Center"/>
+        <TextBox Width="40" Height="20" Text="{Binding Value, ElementName=slider}" KeyDown="txt_KeyDown"
+                 InputMethod.IsInputMethodEnabled =" False"
+                 PreviewTextInput ="limitNumber"/>
+        <TextBlock Text="{Binding Unit}" Width="{Binding UnitWidth}"
+                   Visibility="{Binding ShowUnit}" Margin="0"/>
+        <Button Content="-" Width="20" Click="btnChange_Click"/>
+        <Button Content="+" Width="20" DockPanel.Dock="Right" Click="btnChange_Click"/>
+        <Slider x:Name="slider" VerticalAlignment="Center"
+                ValueChanged="Slider_ValueChanged"
+                Minimum="{Binding Min}" Maximum="{Binding Max}" 
+                Value="{Binding Value, UpdateSourceTrigger=PropertyChanged}" 
+                IsSnapToTickEnabled = "{Binding IsSnapToTickEnabled}"/>
+    </DockPanel>
+</UserControl>
